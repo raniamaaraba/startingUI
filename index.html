@@ -1,0 +1,198 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>coding activity one</title>
+    
+    <!-- The following line references an external css file -->
+    <!-- It defines style rules for your page, and elements in your page -->
+    <link href="css/style.css" rel="stylesheet">
+    
+</head>
+<body>
+    <!-- Load external JS files -->
+    <!-- This is where you will do most of the 'work' for your applications -->
+    <script src="js/main.js"></script>
+    <h1>
+        <svg height="40" width="5000" xmlns="http://www.w3.org/2000/svg">
+        <text x="5" y="30" fill="pink" stroke="blue" font-size="35">Rania's Nikki!</text>
+        </svg>
+        Track your goals and habits
+    </h1>
+    <p>
+    <label for="fname">Name:</label>
+    <input type="text" id="fname" name="fname"><br><br>
+    <script>
+        const named = document.getElementById("fname")
+    </script>
+
+    <label id="current-time">Current Date and Time:</time>
+        <!-- script from GFG injection on CDT-->
+        <!-- url: https://www.geeksforgeeks.org/html/how-to-inject-current-day-and-time-into-html/ -->
+        <!-- tech an event listener? not counting it though -->
+        <script>
+        function updateTime() {
+            const now = new Date(); //assign now to a date val
+            const timeElement = document.getElementById('current-time'); //looking back at our label
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }; //displaying wmdy
+            timeElement.dateTime = now.toISOString(); //appending to the string in a date time format
+            timeElement.innerHTML = `Today is: ${now.toLocaleDateString(undefined, options)},
+                                     Time: ${now.toLocaleTimeString()}`; //note localtime is in 12:00:00 not 24:00
+                                                                         // for future reference--try to format in 24:00 
+        }
+
+            setInterval(updateTime, 1000);
+            updateTime();
+        </script>
+        
+    
+    </p>
+
+    <!-- feelings sector-->
+    
+    <h3>
+        Let us know how you're feeling today!
+    </h3>
+    <p>
+        <input type="checkbox" id="checkbox1" name="happy" value="yes">
+        <label for="checkbox1">Happy</label>
+    </p>
+    <p>
+        <input type="checkbox" id="checkbox2" name="sad" value="yes">
+        <label for="checkbox2">Sad</label>
+    </p>
+    <p>
+        <input type="checkbox" id="checkbox3" name="sleepy" value="yes">
+        <label for="checkbox3">Sleepy</label>
+    </p>
+    <p>
+        <input type="checkbox" id="checkbox4" name="energetic" value="yes">
+        <label for="checkbox4">Energetic</label>
+    </p>
+    <p>
+         <input type="checkbox" id="checkbox5" name="nervy" value="yes">
+        <label for="checkbox5">Anxious</label>
+    </p>
+
+    <p>
+        <label for="changeInFeeling">Changes in feelings:</label>
+        <ul id="emotionally"></ul>
+    </p>
+
+    <script>
+        const emotions = ["happy","sad", "sleepy", "anxious","energetic"];
+
+        const totalEmotions = {
+            happy: 1,
+            sad: 0,
+            sleepy: 1,
+            anxious: 1,
+            energetic: 3
+        };
+
+        const emotionalList = document.getElementById("emotionally");
+        function updatingEmotionalList() {
+            emotionalList.innerHTML = "";
+            emotions.forEach(emotion => {
+                const listing = document.createElement("li");
+                listing.textContent = `${emotion}: ${totalEmotions[emotion]} day(s)`;
+                emotionalList.appendChild(listing);
+            });
+        }
+
+        //add in data
+        updatingEmotionalList();
+        emotions.forEach((emotion,index) => {
+            const checkboxes = document.getElementById(`checkbox${index + 1}`);
+            checkboxes.addEventListener("change", function(){
+                if (this.checked) {
+                    totalEmotions[emotion] += 1;
+                } else {
+                    totalEmotions[emotion] = Math.max(0, totalEmotions[emotion] - 1);
+                    //solves nan
+                }
+                updatingEmotionalList();
+            });
+        });
+    </script>
+
+    <!--sleep sector-->
+    <p>
+        <label for="sleep">Enter the amount of hours you slept last night:</label>
+        <input id="sleepHours" name="sleep"/>
+    </p>
+
+    <p>
+        <label for="avgHours">Average number of hours:</label>
+        <span id="total"></span>
+    </p>
+
+    <script>
+            //compile the avg numbers
+            //https://www.w3schools.com/howto/howto_js_trigger_button_enter.asp
+            document.getElementById("sleepHours").addEventListener("keypress", function(event){
+                if (event.key == "Enter"){
+                    const sleepTotal = parseFloat(this.value);
+                    const total = 8 + 9 + sleepTotal;
+                    const avg = (total / 3).toFixed(1);
+
+                    document.getElementById("total").textContent = ` ${avg} hours`;
+                }
+            });
+    </script>
+
+    <!-- upload an image-->
+     <h3>
+        Picture of the Day
+     </h3>
+    <p>
+        <label for="img"></label>
+        <input type="file" id="img" name="img" accept="image/*" onchange="loadFile(event)">
+        <img id="output" width="200" />
+    </p>
+    <h2>
+        A reading from the Book of Isiah 66:18-21 the 21st Sunday in Ordinary Time
+    </h2>
+    <p>
+        Thus says the Lord:
+        I know their works and their thoughts,
+        and I come to gather nations of every language;
+        they shall come and see my glory.
+        I will set a sign among them;
+        from them I will send fugitives to the nations:
+        to Tarshish, Put and Lud, Mosoch, Tubal and Javan,
+        to the distant coastlands
+        that have never heard of my fame, or seen my glory;
+        and they shall proclaim my glory among the nations.
+        They shall bring all your brothers and sisters from all the nations
+        as an offering to the Lord,
+        on horses and in chariots, in carts, upon mules and dromedaries,
+        to Jerusalem, my holy mountain, says the Lord,
+        just as the Israelites bring their offering
+        to the house of the Lord in clean vessels.
+        Some of these I will take as priests and Levites, says the Lord.
+    </p>
+    <h3>
+        Daily Journal Entry:
+    </h3>
+    <p>
+        <label for="userJournal"></label>
+        <textarea id="userJournal" name="journal" rows="6" cols="50">
+        </textarea>
+        <script>
+            const dailyEntry = document.getElementById("userJournal");
+        </script>
+        <button id="submitEntry">Submit</button>
+    </p>
+</body>
+</html>
+<script type="text/javascript">
+  var loadFile = function(event) {
+    var image = document.getElementById('output');
+    image.src = URL.createObjectURL(event.target.files[0]);
+  };
+</script>
+
+
+
+
